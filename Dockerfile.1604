@@ -6,6 +6,7 @@ FROM updated as build
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -qq
 RUN apt-get install -y  \
+  nano \
   build-essential \
   cmake \
   git \
@@ -123,6 +124,9 @@ RUN apt-get update && apt-get install -y \
   python-minimal
 COPY --from=build /opt /opt
 COPY pipeline.py /opt/dpg/pipeline.py
+COPY pipeline.sh /opt/dpg/pipeline.sh
+RUN chmod a+rwx /opt/dpg/pipeline.sh
+
 RUN groupadd -g $GID ptools
 RUN useradd -r -u $UID -m -g ptools ptools
 WORKDIR /
