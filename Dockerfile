@@ -6,6 +6,7 @@ FROM updated as build
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -qq
 RUN apt-get install -y  \
+  nano \
   build-essential \
   cmake \
   git \
@@ -125,6 +126,8 @@ RUN apt-get update && apt-get install -y \
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python2 1
 COPY --from=build /opt /opt
 COPY pipeline.py /opt/dpg/pipeline.py
+COPY pipeline.sh /opt/dpg/pipeline.sh
+RUN chmod a+rwx /opt/dpg/pipeline.sh
 RUN echo ptools soft core unlimited >> /etc/security/limits.conf
 RUN echo ptools hard core unlimited >> /etc/security/limits.conf
 RUN groupadd -g $GID ptools
