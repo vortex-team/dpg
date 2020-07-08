@@ -142,18 +142,23 @@ def createCommands(args):
     })
 
     commands.append({
+        'title': 'change directory',
+        'command': ['cd', MVSDirectory]
+    })
+
+    commands.append({
         'title': 'cleanup mvs',
         'command': ['rm', '-rf',
-                    os.path.join(MVSDirectory, '*.logs'),
-                    os.path.join(MVSDirectory, '*.dmap'),
-                    os.path.join(MVSDirectory, 'scene.mvs'),
-                    os.path.join(MVSDirectory, 'scene_dense.mvs'),
-                    os.path.join(MVSDirectory, 'scene_dense.ply'),
-                    os.path.join(MVSDirectory, 'scene_dense_mesh.mvs'),
-                    os.path.join(MVSDirectory, 'scene_dense_mesh.ply'),
-                    os.path.join(MVSDirectory, 'scene_dense_mesh_refine.mvs'),
-                    os.path.join(MVSDirectory, 'scene_dense_mesh_refine.ply'),
-                    os.path.join(MVSDirectory, 'scene_dense_mesh_refine_texture.mvs')]
+                    '*.logs',
+                    '*.dmap',
+                    'scene.mvs',
+                    'scene_dense.mvs',
+                    'scene_dense.ply',
+                    'scene_dense_mesh.mvs',
+                    'scene_dense_mesh.ply',
+                    'scene_dense_mesh_refine.mvs',
+                    'scene_dense_mesh_refine.ply',
+                    'scene_dense_mesh_refine_texture.mvs']
     })
 
     return commands
