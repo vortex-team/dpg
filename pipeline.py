@@ -168,34 +168,16 @@ def runCommand(cmd):
         return -1
 
 def remove():
-    removeCommand = {
-        'title': 'cleanup mvs',
-        'command': ['rm', '-rf',
-                    '*.logs',
-                    '*.dmap',
-                    'scene.mvs',
-                    'scene_dense.mvs',
-                    'scene_dense.ply',
-                    'scene_dense_mesh.mvs',
-                    'scene_dense_mesh.ply',
-                    'scene_dense_mesh_refine.mvs',
-                    'scene_dense_mesh_refine.ply',
-                    'scene_dense_mesh_refine_texture.mvs']
-        }
-
-    try:
-        p = subprocess.Popen(removeCommand, cwd = MVSDirectory)
-        p.communicate()
-        return p.returncode
-    except OSError as err:
-        if err.errno == errno.ENOENT:
-            print("Could not find executable: {0} - Have you installed all the requirements?".format(cmd[0]))
-        else:
-            print("Could not run command: {0}".format(err))
-        return -1
-    except:
-        print("Could not run command")
-        return -1
+    os.remove(os.path.join(MVSDirectory, '*.logs'))
+    os.remove(os.path.join(MVSDirectory, '*.dmap'))
+    os.remove(os.path.join(MVSDirectory, 'scene.mvs'))
+    os.remove(os.path.join(MVSDirectory, 'scene_dense.mvs'))
+    os.remove(os.path.join(MVSDirectory, 'scene_dense.ply'))
+    os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh.mvs'))
+    os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh.ply'))
+    os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh_refine.mvs'))
+    os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh_refine.ply'))
+    os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh_refine_texture.mvs'))
 
 def runCommands(commands):
     startTime = int(time.time())
