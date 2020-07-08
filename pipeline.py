@@ -146,7 +146,29 @@ def createCommands(args):
         'command': ['cd', MVSDirectory]
     })
 
-    commands.append({
+
+    return commands
+
+def runCommand(cmd):
+    cwd = outputDirectory
+    if "OpenMVS" in cmd[0]:
+        cwd = MVSDirectory
+    try:
+        p = subprocess.Popen(cmd, cwd = cwd)
+        p.communicate()
+        return p.returncode
+    except OSError as err:
+        if err.errno == errno.ENOENT:
+            print("Could not find executable: {0} - Have you installed all the requirements?".format(cmd[0]))
+        else:
+            print("Could not run command: {0}".format(err))
+        return -1
+    except:
+        print("Could not run command")
+        return -1
+
+def remove():
+    removeCommand = {
         'title': 'cleanup mvs',
         'command': ['rm', '-rf',
                     '*.logs',
@@ -159,16 +181,10 @@ def createCommands(args):
                     'scene_dense_mesh_refine.mvs',
                     'scene_dense_mesh_refine.ply',
                     'scene_dense_mesh_refine_texture.mvs']
-    })
+        }
 
-    return commands
-
-def runCommand(cmd):
-    cwd = outputDirectory
-    if "OpenMVS" in cmd[0]:
-        cwd = MVSDirectory
     try:
-        p = subprocess.Popen(cmd, cwd = cwd)
+        p = subprocess.Popen(removeCommand, cwd = MVSDirectory)
         p.communicate()
         return p.returncode
     except OSError as err:
@@ -208,3 +224,4 @@ parser = createParser()
 args = parser.parse_args()
 commands = createCommands(args)
 runCommands(commands)
+remove()
