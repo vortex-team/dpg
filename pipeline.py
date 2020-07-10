@@ -117,7 +117,12 @@ def createCommands(args):
     sceneFileName.append('mesh')
 
     mvsFileName = '_'.join(sceneFileName) + '.mvs'
+    commands.append({
+        'title': 'Texture mesh',
+        'command': [os.path.join(openmvsBin, 'TextureMesh'), mvsFileName, '-v', '0'] + textureMeshOptions
+    })
 
+    mvsFileName = '_'.join(sceneFileName) + '.mvs'
     commands.append({
         'title': 'Refine mesh',
         'command': [os.path.join(openmvsBin, 'RefineMesh'), mvsFileName, '-v', '0'] + refineMeshOptions
@@ -171,6 +176,7 @@ def remove():
     os.remove(os.path.join(MVSDirectory, 'scene.mvs'))
     os.remove(os.path.join(MVSDirectory, 'scene_dense.mvs'))
     os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh.mvs'))
+    os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh_texture.mvs'))
     os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh_refine.mvs'))
     os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh_refine_texture.mvs'))
 
