@@ -167,7 +167,10 @@ def runCommand(cmd):
 
 def remove():
     os.chdir(MVSDirectory)
-    for file in glob.glob("*.logs"):
+    for file in glob.glob("*.log"):
+        os.remove(file)
+
+    for file in glob.glob("*.jpg"):
         os.remove(file)
 
     for file in glob.glob("*.dmap"):
@@ -176,7 +179,9 @@ def remove():
     os.remove(os.path.join(MVSDirectory, 'scene.mvs'))
     os.remove(os.path.join(MVSDirectory, 'scene_dense.mvs'))
     os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh.mvs'))
+    os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh.ply'))
     os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh_texture.mvs'))
+    os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh_refine.ply'))
     os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh_refine.mvs'))
     os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh_refine_texture.mvs'))
 
