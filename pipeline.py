@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
-import argparse, os, subprocess, time, math, sys, errno
-
+import argparse, glob, os, subprocess, time, math, sys, errno
 MVSDirectory = ''
 outputDirectory = ''
 
@@ -141,12 +140,6 @@ def createCommands(args):
         'command': ['rm', '-rf', reconstructionDirectory]
     })
 
-    commands.append({
-        'title': 'change directory',
-        'command': ['cd', MVSDirectory]
-    })
-
-
     return commands
 
 def runCommand(cmd):
@@ -168,15 +161,17 @@ def runCommand(cmd):
         return -1
 
 def remove():
-    os.remove(os.path.join(MVSDirectory, '*.logs'))
-    os.remove(os.path.join(MVSDirectory, '*.dmap'))
+    os.chdir(MVSDirectory)
+    for file in glob.glob("*.logs"):
+        os.remove(file)
+
+    for file in glob.glob("*.dmap"):
+        os.remove(file)
+
     os.remove(os.path.join(MVSDirectory, 'scene.mvs'))
     os.remove(os.path.join(MVSDirectory, 'scene_dense.mvs'))
-    os.remove(os.path.join(MVSDirectory, 'scene_dense.ply'))
     os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh.mvs'))
-    os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh.ply'))
     os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh_refine.mvs'))
-    os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh_refine.ply'))
     os.remove(os.path.join(MVSDirectory, 'scene_dense_mesh_refine_texture.mvs'))
 
 def runCommands(commands):
